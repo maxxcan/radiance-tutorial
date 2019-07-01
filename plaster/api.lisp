@@ -1,0 +1,8 @@
+(define-api plaster/new (text &optional title) ()
+  (let ((id (db:insert 'plaster-pastes `((title . ,title)
+                                         (time . ,(get-universal-time))
+                                         (text . ,text)))))
+    (if (string= "true" (post/get "browser"))
+        (redirect (make-uri :domains '("plaster")
+                            :path (format NIL "view/~a" id)))
+        (api-output `(("id" . ,id))))))
