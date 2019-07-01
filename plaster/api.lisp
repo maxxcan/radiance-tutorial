@@ -1,3 +1,5 @@
+(in-package #:plaster)
+
 (define-api plaster/new (text &optional title) ()
   (let ((id (db:insert 'plaster-pastes `((title . ,title)
                                          (time . ,(get-universal-time))
